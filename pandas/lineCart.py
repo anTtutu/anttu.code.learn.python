@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -12,7 +14,6 @@ project_dir = os.path.abspath('.')
 
 path = project_dir + "\\request.csv"
 out_path = project_dir + "\\request.jpg"
-
 
 # 全路径
 # path = "D:\\request.csv"
