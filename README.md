@@ -4,6 +4,7 @@
 |--|--|
 | bill | 给朋友写的发票小工具 |
 | faker | 测试数据，faker可以生成你想要的乱真的数据 |
+| matplotlib | 不用pandas直接通过matplotlib画折线图 |
 | pandas | 统计图 |
 | skuSpider | 给公司平面设计师的抓图工具 |
 | spiderHeadPic | 爬取明星照片并提取图像照片 |
