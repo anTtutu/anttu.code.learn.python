@@ -19,6 +19,7 @@ out_path = project_dir + "\\request.jpg"
 # path = "D:\\request.csv"
 # out_path = "D:\\request.jpg"
 
+
 def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(path, encoding='gbk')
@@ -32,6 +33,7 @@ def main():
     plt.figure(num=1, dpi=100, figsize=(24, 32))
     # 点线图
     plt.plot(x_data, y_data, '*-', label=u'请求攻击统计', linewidth=1)
+    # 为了让x轴的内容适配展示的长度，请求路径字段比较长，有几十个字符
     plt.xticks(rotation=270)
     # 统计图的标题
     plt.title(u"请求攻击统计", size=20)
