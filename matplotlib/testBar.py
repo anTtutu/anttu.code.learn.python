@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
 plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -13,7 +14,7 @@ plt.rcParams['axes.unicode_minus'] = False
 project_dir = os.path.abspath('.')
 
 path = project_dir + "\\request.csv"
-out_path = project_dir + "\\request_line.jpg"
+out_path = project_dir + "\\request_bar.jpg"
 
 # 全路径
 # path = "D:\\request.csv"
@@ -24,12 +25,17 @@ def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(path, encoding='gbk')
     # 读取列名为距离误差和时间点的所有行数据
-    y_data = data.loc[:, 'error_count']
-    x_data = data.loc[:, 'error_request_url']
+    height_list = data.loc[:, 'error_count']
+    name_list = data.loc[:, 'error_request_url']
     # 设置画布
     plt.figure(num=1, dpi=100, figsize=(24, 32))
-    # 点线图
-    plt.plot(x_data, y_data, '*-', label=u'请求攻击统计', linewidth=1)
+    # 柱状图
+    plt.bar(np.arange(len(name_list)), height_list, label=u'请求攻击统计', tick_label=name_list, fc='r')
+    # 添加数据标签，也就是给柱子顶部添加标签
+    x = np.arange(len(height_list))
+    y = np.array(list(height_list.values))
+    for a, b in zip(x, y):
+        plt.text(a, b + 0.05, '%.0f' % b, ha='center', va='bottom', fontsize=10)
     # 为了让x轴的内容适配展示的长度，请求路径字段比较长，有几十个字符
     plt.xticks(rotation=270)
     # 统计图的标题

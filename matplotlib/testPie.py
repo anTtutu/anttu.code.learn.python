@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
 plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -12,8 +13,8 @@ plt.rcParams['axes.unicode_minus'] = False
 # 相对路径
 project_dir = os.path.abspath('.')
 
-path = project_dir + "\\request.csv"
-out_path = project_dir + "\\request_line.jpg"
+path = project_dir + "\\pie.csv"
+out_path = project_dir + "\\request_pie.jpg"
 
 # 全路径
 # path = "D:\\request.csv"
@@ -22,24 +23,22 @@ out_path = project_dir + "\\request_line.jpg"
 
 def main():
     # 使用python下pandas库读取csv文件
-    data = pd.read_csv(path, encoding='gbk')
+    data = pd.read_csv(path, encoding='utf-8')
     # 读取列名为距离误差和时间点的所有行数据
-    y_data = data.loc[:, 'error_count']
-    x_data = data.loc[:, 'error_request_url']
+    label_list = data.loc[:, '月份']
+    money_list = data.loc[:, '销售']
+
+    # 设定各项距离圆心n个半径
+    explode = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+
     # 设置画布
     plt.figure(num=1, dpi=100, figsize=(24, 32))
-    # 点线图
-    plt.plot(x_data, y_data, '*-', label=u'请求攻击统计', linewidth=1)
-    # 为了让x轴的内容适配展示的长度，请求路径字段比较长，有几十个字符
-    plt.xticks(rotation=270)
-    # 统计图的标题
-    plt.title(u"请求攻击统计", size=20)
+    # 饼状图
+    plt.pie(money_list, explode=explode, labels=label_list, autopct='%1.1f%%', textprops={'fontsize': 43, 'color': 'k'}, shadow=None, startangle=90)
     # 显示图例
     plt.legend()
-    # X坐标-横坐标标题
-    plt.xlabel(u'请求名称', size=14)
-    # Y坐标-纵坐标标题
-    plt.ylabel(u'请求次数', size=14)
+    # 统计图的标题
+    plt.title(u"XX公司部门每月销售额", size=32)
     # 在展示图片前可以将画出的曲线保存到自己路径下的文件夹中
     plt.savefig(out_path)
     # 显示图像
