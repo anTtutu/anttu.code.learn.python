@@ -50,7 +50,7 @@ outPath = os.sep.join([project_dir, outFileName])
 def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(filePath, encoding='utf-8')
-    # 读取列名为距离误差和时间点的所有行数据
+    # 读取列名
     name_list = data.loc[:, '姓名']
     january_list = data.loc[:, '一月']
     february_list = data.loc[:, '二月']

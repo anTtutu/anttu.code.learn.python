@@ -54,26 +54,24 @@ outPath = os.sep.join([project_dir, outFileName])
 def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(filePath, encoding='utf-8')
-    # 读取列名为距离误差和时间点的所有行数据
-    round1_list = data.loc[:, '科目1成绩']
-    round2_list = data.loc[:, '科目2成绩']
-    round3_list = data.loc[:, '科目3成绩']
-    round4_list = data.loc[:, '科目4成绩']
-    # round_list = data.loc[[1, 2, 3, 4]]
-    c = ['r', 'b', 'g', 'y']
+    # 读取列名
+    total_data = data.loc[:, ]
+
+    height = total_data['身高']
+    weight = total_data['体重']
 
     # 设置画布
     plt.figure(dpi=100, figsize=(24, 32))
     # 散点图
-    plt.hist([round1_list, round2_list, round3_list, round4_list], histtype='bar', color=c, rwidth=0.8)
+    plt.scatter(height, weight)
     # 显示图例
-    plt.legend(('科目1', '科目2', '科目3', '科目4'))
+    plt.legend(('身高/Height', '体重/Weight'))
     # X坐标-横坐标标题
-    plt.xlabel(u'科目成绩/区间', size=24)
+    plt.xlabel(u'身高/Height(厘米)', size=24)
     # Y坐标-纵坐标标题
-    plt.ylabel(u'科目成绩/频率', size=24)
+    plt.ylabel(u'体重/Weight(公斤)', size=24)
     # 统计图的标题
-    plt.title(u"XX驾校成绩", size=32)
+    plt.title(u"XX公司男女身高/体重分布", size=32)
     # 网格
     plt.grid(True)
     # 在展示图片前可以将画出的曲线保存到自己路径下的文件夹中

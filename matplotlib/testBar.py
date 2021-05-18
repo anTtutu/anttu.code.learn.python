@@ -46,7 +46,7 @@ outPath = os.sep.join([project_dir, outFileName])
 def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(filePath, encoding='gbk')
-    # 读取列名为距离误差和时间点的所有行数据
+    # 读取列名
     height_list = data.loc[:, 'error_count']
     name_list = data.loc[:, 'error_request_url']
     # 设置画布

@@ -54,7 +54,7 @@ outPath = os.sep.join([project_dir, outFileName])
 def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(filePath, encoding='utf-8')
-    # 读取列名为距离误差和时间点的所有行数据
+    # 读取列名
     round1_list = data.loc[:, '科目1成绩']
     round2_list = data.loc[:, '科目2成绩']
     round3_list = data.loc[:, '科目3成绩']
