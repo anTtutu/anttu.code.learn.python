@@ -4,8 +4,33 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import platform
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
+# 系统
+print(platform.system())
+
+# 相对路径
+project_dir = os.path.abspath('.')
+print(project_dir)
+fileName = "stack.csv"
+outFileName = "request_stack_bar.jpg"
+
+fontName = "SimHei"
+if platform.system() == 'Windows':
+    print('Windows系统')
+    fontName = ["SimHei"]
+elif platform.system() == 'Linux':
+    print('Linux系统')
+    fontName = ["SimHei"]
+elif platform.system() == 'Darwin':
+    print('MacOS系统')
+    fontName = ["PingFang HK"]
+else:
+    print('其他')
+
+# Mac字体 PingFang HK
+# win字体 SimHei
+plt.rcParams['font.sans-serif'] = fontName
 plt.rcParams['font.family'] = 'sans-serif'
 # 解决负号'-'显示为方块的问题
 plt.rcParams['axes.unicode_minus'] = False
@@ -14,20 +39,17 @@ plt.rcParams['xtick.labelsize'] = 24
 plt.rcParams['ytick.labelsize'] = 24
 plt.rcParams['legend.fontsize'] = 20
 
-# 相对路径
-project_dir = os.path.abspath('.')
-
-path = project_dir + "\\stack.csv"
-out_path = project_dir + "\\request_stack_bar.jpg"
+filePath = os.sep.join([project_dir, fileName])
+outPath = os.sep.join([project_dir, outFileName])
 
 # 全路径
-# path = "D:\\request.csv"
-# out_path = "D:\\request.jpg"
+# filePath = "D:\\request.csv"
+# outPath = "D:\\request.jpg"
 
 
 def main():
     # 使用python下pandas库读取csv文件
-    data = pd.read_csv(path, encoding='utf-8')
+    data = pd.read_csv(filePath, encoding='utf-8')
     # 读取列名为距离误差和时间点的所有行数据
     name_list = data.loc[:, '姓名']
     january_list = data.loc[:, '一月']
@@ -117,7 +139,7 @@ def main():
     # Y坐标-纵坐标标题
     plt.ylabel(u'销售额', size=24)
     # 在展示图片前可以将画出的曲线保存到自己路径下的文件夹中
-    plt.savefig(out_path)
+    plt.savefig(outPath)
     # 显示图像
     plt.show()
     print("all picture is starting")

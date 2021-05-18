@@ -1,5 +1,12 @@
-# -*- coding:utf-8 -*-
-
+# !/usr/bin/python3
+# -*- coding: utf-8 -*-
+"""
+@Description    :  
+@Author         :  Anttu
+@Version        :  v1.0
+@File           :  test.py
+@CreateTime     :  4/5/2021 16:31
+"""
 import os
 import csv  # 导入csv模块，该模块包含于python标准库中
 from matplotlib import pyplot as plt  # 从matplotlib中导入pyplot并重命名为plt
@@ -43,24 +50,12 @@ outPath = os.sep.join([project_dir, outFileName])
 
 
 def main():
-    with open(filePath) as f:
-        reader = csv.reader(f)
-        header_row = next(reader)
-
-        # 提取请求次数、请求名数据存储在列表中
-        counts, requests = [], []
-        for row in reader:
-            # 请求次数
-            count = int(row[0])
-            counts.append(count)
-
-            # 请求路径
-            request = str(row[1])
-            requests.append(request)
+    requests = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+    counts = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 
     # 绘制图表
     plt.figure(dpi=100, figsize=(24, 32))   # 添加绘图窗口，可绘制多条曲线
-    plt.plot(requests, counts, marker='*', c='red', alpha=0.6)  # plot()函数，第一个参数x值，第二个y值
+    plt.plot(requests, counts, marker='*', c='red')  # plot()函数，第一个参数x值，第二个y值
     # ax = plt.gca()  # 获得当前axis
     # bottom, top = plt.ylim()  # 获得y轴最大最小值
     # ax.spines['bottom'].set_position(('data', bottom)) # 移动x轴到y轴最小值位置
@@ -73,11 +68,11 @@ def main():
     plt.title("请求攻击次数", fontsize=20)   # 图形标题
     plt.xlabel("请求路径", fontsize=14)   # x轴标题及字号
     plt.ylabel("请求次数", fontsize=14)   # y轴标题及字号
-    plt.tick_params(axis='both', which='major', labelsize=8)  # 坐标轴格式
+    # plt.tick_params(axis='both', which='major', labelsize=8)  # 坐标轴格式
     # 为了让x轴的内容适配展示的长度，请求路径字段比较长，有几十个字符
-    plt.xticks(rotation=270)
+    # plt.xticks(rotation=270)
     # 给图表区域着色
-    plt.fill_between(requests, counts, facecolor='blue', alpha=0.1)
+    # plt.fill_between(requests, counts, facecolor='blue', alpha=0.1)
     """Å
     facecolor为填充区域颜色
     alpha为填充颜色的透明度，0表示完全透明，1表示完全不透明

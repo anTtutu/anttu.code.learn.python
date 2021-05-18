@@ -1,4 +1,12 @@
-# -*- coding:utf-8 -*-
+# !/usr/bin/python3
+# -*- coding: utf-8 -*-
+"""
+@Description    :  
+@Author         :  Anttu
+@Version        :  v1.0
+@File           :  testHist.py
+@CreateTime     :  1/5/2021 11:24
+"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -12,8 +20,8 @@ print(platform.system())
 # 相对路径
 project_dir = os.path.abspath('.')
 print(project_dir)
-fileName = "request.csv"
-outFileName = "request_bar.jpg"
+fileName = "hist.csv"
+outFileName = "request_hist.jpg"
 
 fontName = "SimHei"
 if platform.system() == 'Windows':
@@ -45,29 +53,29 @@ outPath = os.sep.join([project_dir, outFileName])
 
 def main():
     # 使用python下pandas库读取csv文件
-    data = pd.read_csv(filePath, encoding='gbk')
+    data = pd.read_csv(filePath, encoding='utf-8')
     # 读取列名为距离误差和时间点的所有行数据
-    height_list = data.loc[:, 'error_count']
-    name_list = data.loc[:, 'error_request_url']
+    round1_list = data.loc[:, '科目1成绩']
+    round2_list = data.loc[:, '科目2成绩']
+    round3_list = data.loc[:, '科目3成绩']
+    round4_list = data.loc[:, '科目4成绩']
+    # round_list = data.loc[[1, 2, 3, 4]]
+    c = ['r', 'b', 'g', 'y']
+
     # 设置画布
-    plt.figure(num=1, dpi=100, figsize=(24, 32))
-    # 柱状图
-    plt.bar(np.arange(len(name_list)), height_list, label=u'请求攻击统计', tick_label=name_list, fc='turquoise')
-    # 添加数据标签，也就是给柱子顶部添加标签
-    x = np.arange(len(height_list))
-    y = np.array(list(height_list.values))
-    for a, b in zip(x, y):
-        plt.text(a, b + 0.05, '%.0f' % b, ha='center', va='bottom', fontsize=10)
-    # 为了让x轴的内容适配展示的长度，请求路径字段比较长，有几十个字符
-    plt.xticks(rotation=270)
-    # 统计图的标题
-    plt.title(u"请求攻击统计", size=20)
+    plt.figure(dpi=100, figsize=(24, 32))
+    # 直方图
+    plt.hist([round1_list, round2_list, round3_list, round4_list], histtype='bar', color=c, rwidth=0.8)
     # 显示图例
-    plt.legend()
+    plt.legend(('科目1', '科目2', '科目3', '科目4'))
     # X坐标-横坐标标题
-    plt.xlabel(u'请求名称', size=14)
+    plt.xlabel(u'科目成绩/区间', size=24)
     # Y坐标-纵坐标标题
-    plt.ylabel(u'请求次数', size=14)
+    plt.ylabel(u'科目成绩/频率', size=24)
+    # 统计图的标题
+    plt.title(u"XX驾校成绩", size=32)
+    # 网格
+    plt.grid(True)
     # 在展示图片前可以将画出的曲线保存到自己路径下的文件夹中
     plt.savefig(outPath)
     # 显示图像
