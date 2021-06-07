@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-@Description    :  
+@Description    :  散点图
 @Author         :  Anttu
 @Version        :  v1.0
 @File           :  testScatter.py
@@ -55,17 +55,22 @@ def main():
     # 使用python下pandas库读取csv文件
     data = pd.read_csv(filePath, encoding='utf-8')
     # 读取列名
-    total_data = data.loc[:, ]
-
-    height = total_data['身高']
-    weight = total_data['体重']
+    height = data.loc[:, ['性别', '身高']]
+    weight = data.loc[:, ['性别', '体重']]
+    # 身高
+    male_height = height.loc[height['性别'] == 1]
+    female_height = height.loc[height['性别'] == 0]
+    # 体重
+    male_weight = weight.loc[weight['性别'] == 1]
+    female_weight = weight.loc[weight['性别'] == 0]
 
     # 设置画布
     plt.figure(dpi=100, figsize=(24, 32))
     # 散点图
-    plt.scatter(height, weight)
+    plt.scatter(male_height, male_weight, marker='x', color='b', alpha=0.5)
+    plt.scatter(female_height, female_weight, color='r', alpha=0.5)
     # 显示图例
-    plt.legend(('身高/Height', '体重/Weight'))
+    plt.legend(('Male', 'Female'))
     # X坐标-横坐标标题
     plt.xlabel(u'身高/Height(厘米)', size=24)
     # Y坐标-纵坐标标题
