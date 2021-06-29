@@ -74,7 +74,6 @@ def main():
     for index in range(len(ability_name)):
         # 技能值
         result = ability_name.iloc[index].values
-
         # 使雷达图封闭起来
         values = np.concatenate((result, [result[0]]))
 
@@ -86,20 +85,20 @@ def main():
         # 绘制折线图
         ax.plot(angles, values, 'o-', linewidth=1)
         ax.fill(angles, values, 'r', alpha=0.5)
-
         # 添加每个特质的标签
         ax.set_thetagrids(angles * 180 / np.pi, labels)
         # 设置极轴范围
         ax.set_rlim(0, 10)
         # 设置雷达图的坐标值显示角度，相对于起始角度的偏移量
         ax.set_rlabel_position(360)
+
         # 统计图的标题
-        title_name = ability_value['姓名'][index]
+        title_name = '火影 - ' + ability_value['姓名'][index] + ' === 合计[' + str(ability_value['合计'][index]) + ']'
         plt.title(title_name, size=14)
         # 网格
         plt.grid(True)
         # 在展示图片前可以将画出的曲线保存到自己路径下的文件夹中
-        plt.savefig(os.sep.join([project_dir, outFileName + title_name + '.jpg']))
+        plt.savefig(os.sep.join([project_dir, outFileName + ability_value['姓名'][index] + '.jpg']))
         # 显示图像
         plt.show()
     print("all picture is starting")
