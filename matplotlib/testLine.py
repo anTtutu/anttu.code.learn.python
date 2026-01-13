@@ -78,7 +78,7 @@ def main():
     plt.xticks(rotation=270)
     # 给图表区域着色
     plt.fill_between(requests, counts, facecolor='blue', alpha=0.1)
-    """Å
+    """
     facecolor为填充区域颜色
     alpha为填充颜色的透明度，0表示完全透明，1表示完全不透明
     """
