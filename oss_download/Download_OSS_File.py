@@ -30,10 +30,14 @@ from PIL import Image
 # 1、并发爬取效率没觉得快多少
 # 2、中间有段根据后缀判断的逻辑弯弯绕绕的是因为规则很不规律，一会带文件名后缀，一会不带文件名后缀，麻烦，所以写了很多if esle强制判断
 # 
+# 注意：
+# 1、需要安装ffmpeg  流媒体处理方式，视频文件也可以处理，但是速度比较慢
+# 2、需要安装aria2   比分块下载稳定性好
+#
 # 整体爬虫思路可以供参考
 ###############################################################
 
-# 去掉隐藏代码如下，未验证 供参考
+# 去掉ppt的隐藏页代码如下，未验证 供参考
 def count_visible_slides(pptx_file):
     presentation = Presentation(pptx_file)
     visible_slide_count = 0
@@ -44,6 +48,21 @@ def count_visible_slides(pptx_file):
             visible_slide_count += 1
 
     return visible_slide_count
+
+# 1、分块下载可能有几率丢帧的问题也可以用ffmpeg解决，就是速度比较慢
+# yum install epel-release
+# yum install ffmpeg ffmpeg-devel
+# ffmpeg -i "http://example.com/path/to/video.mp4" -c copy output.mp4
+
+# 2、如果需要异步下载可以求助于aria2
+# 求助于安装独立下aria2下载工具提高速度和减少丢帧可靠性
+# yum install aria2
+def download_with_aria2(url, filename):
+    subprocess.run(['aria2c', url, '-o', filename])
+
+url = 'https://example.com/path/to/video.mp4'  # 替换为视频的实际 URL
+download_with_aria2(url, 'video.mp4')
+     
 
 
 # 配置字典
@@ -61,7 +80,7 @@ config = {
         "access_key_secret": "secret",
         "bucket_name": "bucket",
         "region": "cn-hangzhou",                         # Bucket所在区域
-        "endpoint": "oss-{region}.aliyuncs.com",
+        "endpoint": f"oss-{region}.aliyuncs.com",
         "base_url": f"https://{bucket_name}.{endpoint}"  # OSS 访问的基础 URL
     },
     "download": {
@@ -69,7 +88,7 @@ config = {
         "concurrent_limit": 100,     # 最大并发下载数
         "retry_attempts": 3,         # 最大重试次数
         "retry_interval": 5,         # 重试间隔时间（秒）
-        "chunk_size": 1024 * 1024,   # 文件分块大小（1MB）
+        "chunk_size": 1024,          # 文件分块大小（1024*1024,1MB  有几率存在丢帧情况）
         "time_out": 3600 * 8         # 请求超时时间（秒）因为有几个G的
     },
     "excel": {
